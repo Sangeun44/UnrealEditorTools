@@ -56,12 +56,19 @@ void UQuickAssetAction::AddPrefixes()
 			continue;
 		}
 
+		// Get the old name from object
 		FString OldName = SelectedObject->GetName();
-
+		
 		if (OldName.StartsWith(*PrefixFound))
 		{
 			Print(OldName + TEXT(" already has prefix added"), FColor::Red);
 			continue;
+		} 
+		
+		if (SelectedObject->IsA<UMaterialInstanceConstant>())
+		{
+			OldName.RemoveFromStart(TEXT("M_"));
+			OldName.RemoveFromEnd(TEXT("_inst"));
 		}
 
 		const FString NewNameWithPrefix = *PrefixFound + OldName;
