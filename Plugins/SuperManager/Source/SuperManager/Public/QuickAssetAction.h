@@ -28,11 +28,27 @@ class SUPERMANAGER_API UQuickAssetAction : public UAssetActionUtility
 	GENERATED_BODY()
 
 public:
+    /**
+     * Duplicates selected assets a specified number of times.
+     * @param NumOfDuplicates - Number of duplicates to create for each selected asset.
+     */
 	UFUNCTION(CallInEditor)
 	void DuplicateAssets(int32 NumOfDuplicates);
 
+    /**
+     * Adds predefined prefixes to the names of selected assets based on their class.
+     * Skips assets that already have the prefix or if no prefix is found for the class.
+     */
 	UFUNCTION(CallInEditor)
 	void AddPrefixes();
+
+    /**
+     * Identifies and processes unused assets from the selected ones.
+     * An asset is considered unused if it has no references.
+     */
+    UFUNCTION(CallInEditor)
+    void RemoveUnusedAssets();
+
 private:
     TMap<UClass*, FString>PrefixMap =
     {
